@@ -1,0 +1,22 @@
+#!/bin/bash
+
+browser="firefox"
+
+#prompt user for input as to what application they want information about
+echo "What page are you looking for?"
+
+#takes user input and creates a variable called application to be called later
+read -r application
+
+#run netcat to check for internet connection
+nc -z 8.8.8.8 53  >/dev/null 2>&1
+online=$?
+
+#if internet connection found, launches web browser to arch wiki and fills in application variable with user input from above
+if [ $online -eq 0 ]; then
+    "$browser" https://wiki.archlinux.org/title/"$application"
+
+#if no internet connection found, launches awman (command line, offline version of arch wiki) an calls application from user input above
+else
+    awman "$application"
+fi
