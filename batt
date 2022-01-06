@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#Script to check your battery life from terminal for all batteries
+
+#Replace battery count with the number of batteries you have
+battery_count=2
+
+let battery_count-=1
+
+for i in $(seq 0 $battery_count)
+do
+    echo "Battery $i"
+    upower -i /org/freedesktop/UPower/devices/battery_BAT$i | grep -E "state|to\
+        full|percentage"
+done
