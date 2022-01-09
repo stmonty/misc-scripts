@@ -1,0 +1,12 @@
+pathprepend is a function
+pathprepend ()
+{
+    for arg in "$@";
+    do
+        test -d "$arg" || continue;
+        PATH=${PATH//:"$arg:"/:};
+        PATH=${PATH/#"$arg:"/};
+        PATH=${PATH/%":$arg"/};
+        export PATH="$arg${PATH:+":${PATH}"}";
+    done
+}
